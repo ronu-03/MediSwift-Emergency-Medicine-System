@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MediSwift</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <h1>🚑 Welcome to MediSwift Emergency Medicine System</h1>
+  
+  <h2>Emergency Medicine Mode (SOS)</h2>
+  <button onclick="sendSOS()">Send SOS Request</button>
+  <div id="sosResult"></div>
+<script>
+function sendSOS() {
+  document.getElementById("sosResult").innerHTML = "🚨 SOS Request Sent! Nearby pharmacies alerted.";
+}
+</script>
+   <h2>AI Doctor Assist Chatbot</h2>
+   <div id="chat" style="border:1px solid #ccc; padding:10px; width:300px; height:200px; overflow-y:auto;"></div>
+   <input id="msg" placeholder="Enter your query">
+   <button onclick="chat()">Send</button>
+   <h2>Cold-Chain Temperature Tracking</h2>
+   <canvas id="tempChart" width="400" height="200"></canvas>
+<h2>Nearby Pharmacy Availability</h2>
+<iframe
+  src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d12673.123456789!2d76.123456!3d10.123456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1234567890"
+  width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+<h2>Community SOS Network</h2>
+<button onclick="sendCommunitySOS()">Request Community Help</button>
+<div id="communityResult"></div>
+<script>
+    // SOS function
+    function sendSOS() {
+      document.getElementById("sosResult").innerHTML = "🚨 SOS Request Sent! Nearby pharmacies alerted.";
+ }
+// Chatbot function
+function chat() {
+  let box = document.getElementById("chat");
+  let msg = document.getElementById("msg").value;
+  if(msg.trim() === "") return;
+  box.innerHTML += "<div><b>You:</b> " + msg + "</div>";
+  let reply = "🤖 DoctorBot: ";
+  if(msg.toLowerCase().includes("insulin")) reply += "Insulin dosage verified ✔";
+  else if(msg.toLowerCase().includes("duplicate")) reply += "Duplicate prescription detected ⚠";
+  else reply += "Please consult doctor for accuracy.";
+  box.innerHTML += "<div>" + reply + "</div>";
+  document.getElementById("msg").value = "";
+  box.scrollTop = box.scrollHeight;
+ }
+// Cold-Chain Temperature Graph
+ const ctx = document.getElementById('tempChart').getContext('2d');
+ const tempChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['10AM','11AM','12PM','1PM','2PM'],
+            datasets: [{
+                label: 'Temperature (°C)',
+                data: [4, 5, 5.5, 4.8, 5],
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                tension: 0.3
+            }]
+        },
+        options: {
+            scales: {
+                y: { beginAtZero: false, min: 2, max: 8 }
+            }
+        }
+    });
+ </script>
+<script>
+function sendCommunitySOS() {
+    const messages = [
+        "📢 Volunteer A: I have the medicine, can deliver!",
+        "📢 Volunteer B: I can help, on my way!",
+        "📢 Volunteer C: Sorry, unavailable now."
+    ];
+    const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+    document.getElementById("communityResult").innerHTML = randomMsg;
+}
+</script>
+</body>
+</html>
